@@ -1,0 +1,66 @@
+<!--
+
+    Copyright 2010 Molindo GmbH
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>esi4j-example</title>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
+	</head>
+	<body>
+		<h1>esi4j-example</h1>
+		<fieldset>
+			<legend>Add Feed URL</legend>
+			<form action="post" wicket:id="urlForm">
+				<div wicket:id="feedback"></div>
+				<input type="text" wicket:id="url" />
+				<button type="submit" wicket:id="submit">Submit</button>
+			</form>
+		</fieldset>
+
+		<fieldset>
+			<legend>Options</legend>
+			<p>
+				<a href="" wicket:id="rebuild">Rebuild Index</a>
+				<a href="" wicket:id="delete">Delete Articles</a>
+			</p>
+		</fieldset>
+
+		<fieldset>
+			<legend>Search Articles</legend>
+			<form>
+				<input type="text" wicket:id="search" />
+				<div wicket:id="facetsContainer">
+					<wicket:container wicket:id="categoryFacets">
+						<input type="checkbox" wicket:id="check" /><label wicket:id="term"></label> (<small wicket:id="count"></small>)
+					</wicket:container>
+				</div>
+			</form>
+		</fieldset>
+		<fieldset wicket:id="container">
+			<legend>Result: <em wicket:id="query"></em></legend>
+			<div wicket:id="result">
+				<strong wicket:id="object.subject"></strong> (<span wicket:id="object.date"></span>)
+				<p wicket:id="object.body"></p>
+				<p>| <wicket:container wicket:id="categories"><em wicket:id="name"></em> | </wicket:container></p>
+				<a href="" target="_blank" wicket:id="link">Link</a>
+				<hr />
+			</div>
+		</fieldset>
+	</body>
+</html>
