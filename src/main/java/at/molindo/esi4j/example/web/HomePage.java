@@ -102,7 +102,7 @@ public class HomePage extends WebPage {
 
 			@Override
 			public List<SearchHitWrapper> getObject() {
-				return _searchResponseModel.getObject().actionGet().getObjects();
+				return _searchResponseModel.getObject().actionGet().getHits();
 			}
 
 		};
@@ -202,7 +202,7 @@ public class HomePage extends WebPage {
 							return wrapper.getObject(Article.class).getBody();
 						}
 
-						String[] fragments = field.getFragments();
+						Object[] fragments = field.getFragments();
 						if (fragments == null) {
 							return wrapper.getObject(Article.class).getBody();
 						}
@@ -277,7 +277,7 @@ public class HomePage extends WebPage {
 			feedback.setOutputMarkupId(true);
 			add(feedback);
 
-			add((_field = new TextField<String>("url", new Model<String>("http://feeds.nytimes.com/nyt/rss/HomePage")))
+			add((_field = new TextField<String>("url", new Model<String>("http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
 					.add(new UrlValidator()));
 
 			add(new IndicatingAjaxButton("submit") {
