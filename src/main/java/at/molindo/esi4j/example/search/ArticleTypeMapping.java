@@ -52,7 +52,7 @@ public class ArticleTypeMapping extends AbstractLongTypeMapping<Article> {
 	}
 
 	@Override
-	protected void id(Article o, Long i) {
+	protected void setId(Article o, Long i) {
 		o.setId(i);
 	}
 
@@ -67,7 +67,7 @@ public class ArticleTypeMapping extends AbstractLongTypeMapping<Article> {
 	}
 
 	@Override
-	protected void version(Article o, Long version) {
+	protected void setVersion(Article o, Long version) {
 		o.setVersion(version);
 	}
 

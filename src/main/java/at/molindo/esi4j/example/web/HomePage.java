@@ -102,7 +102,7 @@ public class HomePage extends WebPage {
 
 			@Override
 			public List<SearchHitWrapper> getObject() {
-				return _searchResponseModel.getObject().actionGet().getHits();
+				return _searchResponseModel.getObject().actionGet().getSearchHits();
 			}
 
 		};
@@ -197,7 +197,7 @@ public class HomePage extends WebPage {
 					public String getObject() {
 						SearchHitWrapper wrapper = item.getModelObject();
 
-						HighlightField field = wrapper.getHit().getHighlightFields().get("body");
+						HighlightField field = wrapper.getSearchHit().getHighlightFields().get("body");
 						if (field == null) {
 							return wrapper.getObject(Article.class).getBody();
 						}
