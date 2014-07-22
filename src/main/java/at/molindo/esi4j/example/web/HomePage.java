@@ -121,7 +121,7 @@ public class HomePage extends WebPage {
 					return Collections.emptyList();
 				}
 
-				return facet.entries();
+				return facet.getEntries();
 			}
 
 		};
@@ -153,7 +153,7 @@ public class HomePage extends WebPage {
 					@Override
 					public void setObject(Boolean checked) {
 						List<String> categories = _searchModel.getObject().getCategories();
-						String category = item.getModelObject().getTerm();
+						String category = item.getModelObject().getTerm().string();
 						if (Boolean.TRUE.equals(checked)) {
 							categories.add(category);
 						} else {
