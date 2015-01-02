@@ -15,21 +15,36 @@
  */
 package at.molindo.esi4j.example.db;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import at.molindo.esi4j.example.model.Article;
 
-public class ArticleDAOImpl extends HibernateDaoSupport implements IArticleDAO {
+@Repository
+public class ArticleDAOImpl implements IArticleDAO {
 
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public void save(Article article) {
-		getHibernateTemplate().save(article);
+		this.sessionFactory.getCurrentSession().save(article);
 	}
 
 	@Override
-	public void deleteArticles() {
-		getHibernateTemplate().deleteAll(getHibernateTemplate().findByCriteria(DetachedCriteria.forClass(Article.class)));
+	public void deleteArticles() {		
+		@SuppressWarnings("unchecked")
+		List<Article> articles = this.sessionFactory.getCurrentSession().createCriteria(Article.class).list();	
+		for (Article article : articles) {
+			this.sessionFactory.getCurrentSession().delete(article);
+		}
 	}
 
 }

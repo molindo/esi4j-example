@@ -85,6 +85,8 @@ public class ExampleEsi4JBean extends Esi4JBean {
 		Esi4JIndexManager hibernateIndexManager = new HibernateIndexManager(_sessionFactory, index, processingChain);
 		esi4j.registerIndexManger(hibernateIndexManager);
 	}
+	
+	
 
 	protected void close() {
 		FileUtils.delete(_tmpDir);

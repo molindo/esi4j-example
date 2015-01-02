@@ -18,7 +18,6 @@ package at.molindo.esi4j.example.search;
 import java.io.IOException;
 import java.util.Map;
 
-import org.apache.lucene.document.Field;
 import org.elasticsearch.common.joda.time.format.ISODateTimeFormat;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.index.mapper.core.DateFieldMapper;
@@ -81,7 +80,7 @@ public class ArticleTypeMapping extends AbstractLongTypeMapping<Article> {
 			.add(new StringFieldMapper.Builder(URL))
 			.add(new DateFieldMapper.Builder(DATE))
 			.add(new StringFieldMapper.Builder(BODY))
-			.add(new StringFieldMapper.Builder(CATEGORY).index(Field.Index.NOT_ANALYZED));
+			.add(new StringFieldMapper.Builder(CATEGORY).index(false));
 		// @format
 	}
 
