@@ -18,10 +18,13 @@ package at.molindo.esi4j.example.search;
 import java.io.File;
 import java.util.UUID;
 
+import org.elasticsearch.Version;
+import org.elasticsearch.cluster.metadata.IndexMetaData;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.ImmutableSettings.Builder;
 import org.hibernate.SessionFactory;
 
+import at.molindo.esi4j.core.Esi4J;
 import at.molindo.esi4j.core.Esi4JIndexManager;
 import at.molindo.esi4j.core.impl.DefaultEsi4J;
 import at.molindo.esi4j.core.internal.InternalIndex;
@@ -49,6 +52,8 @@ public class ExampleEsi4JBean extends Esi4JBean {
 		// local and ram
 		Builder settings = ImmutableSettings.settingsBuilder()
 			.put("esi4j.client.type", "node")
+			.putArray("esi4j.indexes", Esi4J.DEFAULT_INDEX,  "flags")
+			.put("cluster.name", "elasticsearch")
 			.put("node.data", true)
 			.put("node.local", true)
 			.put("gateway.type", "none")
@@ -56,6 +61,8 @@ public class ExampleEsi4JBean extends Esi4JBean {
 			.put("path.logs", new File(_tmpDir, "logs").toString())
 			.put("index.store.type", "ram")
 			.put("index.mapper.dynamic", false)
+			.put("action.auto_create_index", true)
+			.put(IndexMetaData.SETTING_VERSION_CREATED, Version.CURRENT)
 			.put("index.number_of_replicas", 0)
 			.put("index.number_of_shards", 1)
 			.put("index.refresh_interval", -1);
@@ -69,13 +76,14 @@ public class ExampleEsi4JBean extends Esi4JBean {
 
 		// @format
 	}
+	
 
 	@Override
 	protected void init(DefaultEsi4J esi4j) {
 		if (_sessionFactory == null) {
 			throw new IllegalStateException("sessionFactory not configured");
 		}
-
+				
 		InternalIndex index = esi4j.getIndex();
 		index.addTypeMapping(new ArticleTypeMapping());
 
