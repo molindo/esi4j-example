@@ -246,7 +246,9 @@ public class HomePage extends WebPage {
 	}
 
 	private void updateSearch(AjaxRequestTarget target) {
+		_searchService.refresh();
 		_searchResponseModel.detach();
+		
 		if (target != null) {
 			target.add(_container, _facetsContainer);
 		}
@@ -288,8 +290,8 @@ public class HomePage extends WebPage {
 						_articleService.index(new URL(_field.getModelObject()));
 						_searchService.refresh();
 						info("Done");
-						target.add(feedback);
-						updateSearch(AjaxRequestTarget.get());
+						target.add(feedback);						
+						updateSearch(target);
 					} catch (MalformedURLException e) {
 						throw new WicketRuntimeException("invalid URL bypassed validator?", e);
 					}
@@ -297,8 +299,8 @@ public class HomePage extends WebPage {
 
 				@Override
 				protected void onError(AjaxRequestTarget target, Form<?> form) {
-					target.add(feedback);
-					updateSearch(AjaxRequestTarget.get());
+					target.add(feedback);					
+					updateSearch(target);
 				}
 			});
 		}
